@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>To-Do App</title>
+
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <header>
+            <h1>Meine Aufgaben</h1>
+        </header>
+        <main>
+            <section>
+                <input type="text" id="taskInput" placeholder="Neue Aufgabe hinzufügen">
+                <div class="custom-dropdown">
+                    <button id="prioritySelectButton" class="custom-dropdown-button">Priorität ▼</button>
+                    <div id="priorityDropdown" class="custom-dropdown-content">
+                        <a href="#" data-priority="low">Niedrig</a>
+                        <a href="#" data-priority="medium">Mittel</a>
+                        <a href="#" data-priority="high">Hoch</a>
+                    </div>
+                </div>
+                <button id="addTaskButton">Hinzufügen</button>
+            </section>
+            <section>
+                <div class="task-list-container">
+                    <ul id="task-list">
+                        <!-- Aufgaben werden hier angezeigt:-->
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <button id="clearTasksButton">Alle Aufgaben löschen</button>
+            </section>
+        </main>
+        <!--- Overlay für die Bestätigung --->
+        <div id="confirmDeleteOverlay" class="overlay hidden">
+            <div class="confirm-box">
+                <p>Bist du dir sicher, dass du Alle Aufgaben löschen willst?</p>
+                <button id="confirmYesButton">Ja</button>
+                <button id="confirmNoButton">Nein</button>
+            </div>
+        </div>
+        <script src="js/app.js"></script>
+    </body>
+</html>

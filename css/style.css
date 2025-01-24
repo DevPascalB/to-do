@@ -1,0 +1,319 @@
+/* Allgemeines Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+/* ------------------------------------- */
+
+/* Container für die App */
+main {
+    width: 100%;
+    max-width: 550px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Überschrift */
+h1 {
+    margin-bottom: 20px;
+    color: #333;
+    padding-right: 30px;
+
+}
+
+/* Eingabefeld und Button */
+section:first-of-type {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding-top: 20px;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.5s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* ------------------------------------- */
+
+/* Aufgabenliste */
+ul {
+    list-style: none;
+    /* padding: 0; */
+}
+
+li {
+    background: #f1f1f1;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: left;
+    display: flex;
+    justify-content: space-between; /* Text und Button auf den gegenüberliegenden Seiten */
+    align-items: flex-start; /* Vertikal ausrichten, oben beginnen */
+    word-wrap: break-word; /* Text wird automatisch umgebrochen, wenn er zu lang ist */
+    overflow-wrap: break-word; /* Alternative für besseren Umbruch */
+    word-break: break-word; /* Verhindert, dass der Text den Container überschreitet */
+    max-width: calc(100% - 50px); /* Sicherstellen, dass die Aufgabe nicht über die Breite des Containers hinausgeht */
+    box-sizing: border-box;
+    position: relative;
+    width: 100%;
+}
+
+.task-list-container {
+    max-height: calc(80vh - 100px); /* 80% der Viewport-Höhe minus 100px */
+    overflow-y: auto;
+    margin-top: 1rem;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.task-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 0;
+}
+
+.task-list-container::-webkit-scrollbar {
+    width: 5px;
+}
+
+.task-list-container::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+}
+
+.task-list-container::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+/* Stil für erledigte Aufgaben */
+.completed {
+    text-decoration: line-through;
+    color: #888;
+}
+
+/* Stil für die Löschen-Schaltfläche */
+.delete-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.delete-btn:hover {
+    background-color: #cc0000;
+}
+
+/* ------------------------------------- */
+
+/* Priorität Styling */
+/* Dynamische Farben für den Button, je nach Priorität */
+.priority-low {
+    background-color: #28a745; /* Knalliges Grün */
+    border-color: #28a745;
+}
+
+.priority-medium {
+    background-color: #ffc107; /* Knalliges Gelb */
+    border-color: #ffc107;
+}
+
+.priority-high {
+    background-color: #dc3545; /* Knalliges Rot */
+    border-color: #dc3545;
+}
+
+/* Farben für die Aufgaben in der Liste (verblasst) */
+.priority-low-task {
+    background-color: #d4edda; /* Grün (verblasst) */
+    border-left: 5px solid #28a745;
+}
+
+.priority-medium-task {
+    background-color: #fff3cd; /* Gelb (verblasst) */
+    border-left: 5px solid #ffc107;
+}
+
+.priority-high-task {
+    background-color: #f8d7da; /* Rot (verblasst) */
+    border-left: 5px solid #dc3545;
+}
+
+#prioritySelectButton {
+    padding: 12px 12px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.5s ease, transform 0.3s ease;
+}
+
+/* Priorität Dropdowm-Menü */
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-dropdown-button {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 120px;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    font-weight: bold;
+}
+
+.custom-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+}
+
+.custom-dropdown-content a {
+    padding: 10px;
+    display: block;
+    color: #333;
+    text-decoration: none;
+}
+
+.custom-dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Zeige das Dropdown, wenn der Container gehovt wird */
+.custom-dropdown:hover .custom-dropdown-content {
+    display: block;
+    z-index: 1001;
+}
+
+
+/* Dropdown-Menü */
+select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Alle Aufgaben löschen */
+#clearTasksButton {
+    padding: 10px 20px;
+    background-color: #dc3545; /* Rot */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#clearTasksButton:hover {
+    background-color: #a71d2a;
+}
+
+/* ------------------------------------- */
+
+/* Abfrage (-> Overlay), ob Aufgaben gelöscht werden sollen */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Dialogbox */
+.confirm-box {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    width: 300px;
+}
+
+.confirm-box p {
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.confirm-box button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#confirmYesButton {
+    background-color: #dc3545;
+    color: white;
+}
+
+#confirmNoButton {
+    background-color: #6c757d;
+    color: white;
+}
+
+.hidden {
+    display: none;
+}
+
+.custom-dropdown-content.show {
+    display: block;
+}
