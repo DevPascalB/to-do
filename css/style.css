@@ -125,6 +125,10 @@ li {
     color: #888;
 }
 
+li.completed {
+    background-color: #333;
+}
+
 /* Stil für die Löschen-Schaltfläche */
 .delete-btn {
     background-color: #ff4d4d;

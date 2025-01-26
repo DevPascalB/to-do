@@ -92,7 +92,7 @@ addTaskButton.addEventListener('click', function () {
         newTask.addEventListener('click', function (e) {
             if (e.target !== deleteButton) {
                 taskSpan.classList.toggle('completed');
-                updateLocalStorage(); // Lokale Speicherung nach Änderung
+                updateLocalStorage();
             }
         });
 
@@ -105,7 +105,7 @@ addTaskButton.addEventListener('click', function () {
 
         taskList.appendChild(newTask);
         taskInput.value = '';
-        updateLocalStorage(); // Lokale Speicherung nach Aufgabe hinzufügen
+        updateLocalStorage();
     }
 });
 
