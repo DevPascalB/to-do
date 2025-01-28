@@ -20,6 +20,7 @@ function loadTasks() {
     if (saveTasks) {
         saveTasks.forEach(task => {
             const newTask = document.createElement('li');
+            newTask.setAttribute('draggable', true); // Ermöglicht das Ziehen
             const taskSpan = document.createElement('span');
             taskSpan.textContent = task.text;
 
@@ -51,6 +52,16 @@ function loadTasks() {
                 updateLocalStorage(); // Lokale Speicherung nach Aufgabe Löschen
             });
 
+            // Drag-and-Drop Events
+            newTask.addEventListener('dragstart', function (e) {
+                e.target.classList.add('dragging');
+            });
+
+            newTask.addEventListener('dragend', function (e) {
+                e.target.classList.remove('dragging');
+                updateLocalStorage(); // Lokale Speicherung nach Änderung der Reihenfolge
+            });
+
             taskList.appendChild(newTask);
         });
     }
@@ -76,6 +87,7 @@ addTaskButton.addEventListener('click', function () {
     // Wenn das Eingabefeld nicht leer ist
     if (taskText) {
         const newTask = document.createElement('li');
+        newTask.setAttribute('draggable', true); // Ermöglicht das Ziehen
         const taskSpan = document.createElement('span');
         taskSpan.textContent = taskText;
 
@@ -112,7 +124,7 @@ addTaskButton.addEventListener('click', function () {
 /* Prioritätauswahl über das Dropdown */
 const priorityOptions = document.querySelectorAll('#priorityDropdown a');
 
-/* Event-Listener für das Klicken auf eine Dropdown-Optiom */
+/* Event-Listener für das Klicken auf eine Dropdown-Option */
 priorityOptions.forEach(option => {
     option.addEventListener('click', function(e) {
         e.preventDefault(); 
@@ -120,15 +132,14 @@ priorityOptions.forEach(option => {
         prioritySelectButton.textContent = option.textContent; /* Aktuallisiere den Button-Text */
 
         /* Button-Farbe dynamisch anpassen */
-        prioritySelectButton.classList.remove('priority-low', 'priority-medium', 'priority-high') /* Entfernt alle farben */
+        prioritySelectButton.classList.remove('priority-low', 'priority-medium', 'priority-high'); /* Entfernt alle Farben */
         prioritySelectButton.classList.add(`priority-${selectedPriority}`); /* Füge die neuen Farben hinzu */
 
         priorityDropdown.classList.add('hidden'); /* Verberge das Dropdown */
-    })
-})
+    });
+});
 
 /* Event-Listener für den 'Alles löschen Button' */
-/* Funktionen zum Anzeigen des Overlays */
 clearTasksButton.addEventListener('click', function() {
     confirmDeleteOverlay.classList.remove('hidden');
 });
@@ -138,19 +149,43 @@ confirmYesButton.addEventListener('click', function() {
     taskList.innerHTML = ''; /* Alles löschen */
     updateLocalStorage();
     confirmDeleteOverlay.classList.add('hidden');
-})
+});
 
 /* Wenn 'Nein' gedrückt wurde */
 confirmNoButton.addEventListener('click', function() {
     confirmDeleteOverlay.classList.add('hidden');
-})
+});
 
 /* Eingabe per Enter-Taste */
 taskInput.addEventListener('keypress', function(e) {
     if(e.key === 'Enter') {
         addTaskButton.click(); /* Simuliere Klick auf den Hinzufüge-Button */
     }
-})
+});
 
 // Initiale Aufgaben aus dem localStorage laden
 window.addEventListener('load', loadTasks);
+
+// Drag-and-Drop Logik
+taskList.addEventListener('dragover', function (e) {
+    e.preventDefault(); // Verhindert das Standardverhalten (z. B. ein Element wird nur hervorgehoben)
+    const draggingTask = document.querySelector('.dragging');
+    const closestTask = getClosestTask(e.clientY);
+    
+    if (closestTask && closestTask !== draggingTask) {
+        taskList.insertBefore(draggingTask, closestTask);
+    }
+});
+
+function getClosestTask(y) {
+    const tasks = [...taskList.querySelectorAll('li:not(.dragging)')];
+    return tasks.reduce((closest, task) => {
+        const box = task.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
+            return { offset, element: task };
+        } else {
+            return closest;
+        }
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
